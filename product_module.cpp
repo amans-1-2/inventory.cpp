@@ -37,12 +37,12 @@ public:
     std::string getCategoryName(ProductCategory category);
     int getProductsCountByCategory(ProductCategory category);
     
-    // Product Status Tracking
+ 
     ProductStatus checkProductStatus(int quantity);
     void updateAllProductsStatus();
     std::vector<Product> getProductsByStatus(ProductStatus status);
     
-    // Other product management functions...
+  
 };
 
 #endif
