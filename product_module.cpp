@@ -5,6 +5,10 @@
 #include <vector>
 #include <map>
 
+vector<Product> products;
+vector<Supplier> suppliers;
+vector<Customer> customers;
+
 enum class ProductStatus { IN_STOCK, LOW_STOCK, OUT_OF_STOCK };
 enum class ProductCategory { ELECTRONICS, CLOTHING, FOOD, FURNITURE, OTHER };
 
@@ -33,6 +37,82 @@ struct Customer {
     int id;
     string name;
 };
+
+void listAllProducts() {
+    for (const auto& p : products) {
+        cout << "ID: " << p.id << ", Name: " << p.name 
+             << ", Qty: " << p.quantity << ", Price: " << p.price << endl;
+    }
+}
+void storeProductRecordsToFile() {
+    ofstream file("products.txt");
+    for (const auto& p : products) {
+        file << p.id << "," << p.name << "," 
+             << p.quantity << "," << p.price << "\n";
+    }
+    file.close();
+}
+
+void listAllSuppliers() {
+    for (const auto& s : suppliers) {
+        cout << "ID: " << s.id << ", Name: " << s.name 
+             << ", Contact: " << s.contact << endl;
+    }
+}
+
+void storeSupplierRecordsToFile() {
+    ofstream file("suppliers.txt");
+    for (const auto& s : suppliers) {
+        file << s.id << "," << s.name << "," << s.contact << "\n";
+    }
+    file.close();
+}
+
+void listAllCustomers() {
+    for (const auto& c : customers) {
+        cout << "ID: " << c.id << ", Name: " << c.name 
+             << ", Email: " << c.email << endl;
+    }
+}
+
+void storeCustomerRecordsToFile() {
+    ofstream file("customers.txt");
+    for (const auto& c : customers) {
+        file << c.id << "," << c.name << "," << c.email << "\n";
+    }
+    file.close();
+}
+
+void backupRestore() {
+    cout << "Backup & Restore functionality is under development.\n";
+}
+
+void showMenu() {
+    int choice;
+    do {
+        cout << "\n=== Inventory Management System ===\n";
+        cout << "1. List All Products\n";
+        cout << "2. Store Product Records in a File\n";
+        cout << "3. List All Suppliers\n";
+        cout << "4. Store Supplier Records in a File\n";
+        cout << "5. List All Customers\n";
+        cout << "6. Store Customer Records in a File\n";
+        cout << "7. Backup & Restore\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: listAllProducts(); break;
+            case 2: storeProductRecordsToFile(); break;
+            case 3: listAllSuppliers(); break;
+            case 4: storeSupplierRecordsToFile(); break;
+            case 5: listAllCustomers(); break;
+            case 6: storeCustomerRecordsToFile(); break;
+            case 7: backupRestore(); break;
+        }
+    } while (choice != 0);
+}
 
 void loadProductRecords(Product& p) {
     p.id = 101;
@@ -106,6 +186,12 @@ int main() {
 
     generateMonthlySummary();
     exportReportsToFile();
+
+    products.push_back({1, "Laptop", 10, 1200.0});
+    suppliers.push_back({1, "ABC Corp", "123456789"});
+    customers.push_back({1, "John Doe", "john@example.com"});
+
+    showMenu();
 
     return 0;
 }
